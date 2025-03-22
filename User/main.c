@@ -1,31 +1,28 @@
 #include "stm32f10x.h"                  // Device header
+#include "delay.h"
+#include "sys.h"
+#include "oled.h"
+#include "bmp.h"
 
 int main(void)
 {	
-	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOD,ENABLE);
-	GPIO_InitTypeDef GPIO_InitStructure;
-	GPIO_InitStructure.GPIO_Mode= GPIO_Mode_Out_PP;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA,&GPIO_InitStructure);
-	//GPIO_SetBits(GPIOA,GPIO_Pin_8);
-	//GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);
-	//GPIO_ResetBits(GPIOA,GPIO_Pin_8);
-	
-	GPIO_InitTypeDef GPIO_InitStructure1;
-	GPIO_InitStructure1.GPIO_Mode= GPIO_Mode_Out_PP;
-	GPIO_InitStructure1.GPIO_Pin = GPIO_Pin_2;
-	GPIO_InitStructure1.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOD,&GPIO_InitStructure1);
-	GPIO_SetBits(GPIOD,GPIO_Pin_2);
-	//GPIO_ResetBits(GPIOD,GPIO_Pin_2);
+	delay_init();
+	OLED_Init();
+	OLED_ShowChar(48,6,' ',1);
+	//OLED_ShowString(1,3,"Hello World!");
+	//OLED_ShowNum(2,1,123455,4);
+	//OLED_ShowSignedNum(2,7,-66,2);
+	//OLED_ShowHexNum(3,1,0xaa55,4);
+	//OLED_ShowBinNum(4,1,0xaa55,16);
+	OLED_Clear(); 
 	while(1)
 	{
-		GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);
-		Delay_ms(500);
-		GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_SET);
-		Delay_ms(500);
+		OLED_ShowCHinese(54,0,3);//电
+		OLED_ShowCHinese(72,0,4);//子
+		OLED_ShowCHinese(90,0,5);//科
+		OLED_ShowCHinese(108,0,6);//技
+		
+		
 	}
 	
 }
